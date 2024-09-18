@@ -14,7 +14,7 @@ def parse_args():
     parser.add_argument(
         "--config",
         type=str,
-        default="./configs/rtdetrv2_r50vd.yml",
+        default="./configs/rtdetrv2.yml",
         help="path to config file",
     )
     parser.add_argument('--epochs', default=1000, type=int)

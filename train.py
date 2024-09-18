@@ -79,6 +79,8 @@ def train(args,params):
             f"[average loss: {avg_loss/len(train_dataloader):.4f}]"
         )
 
+
+
 if __name__ == "__main__":
     
     args = util.parse_args()

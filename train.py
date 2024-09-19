@@ -12,7 +12,6 @@ from utils import util, plots
 
 
 def train(args,params):
-    start_epoch = params["start_epoch"]
 
     model = get_model(args,params)
     model.to(args.device)
@@ -44,7 +43,7 @@ def train(args,params):
     amp_scale = torch.amp.GradScaler()
 
 
-    for epoch in range(start_epoch, args.epochs):
+    for epoch in range(args.epochs):
         model.train()
         criterion.train()
         p_bar = tqdm(enumerate(train_dataloader), total=len(train_dataloader))
@@ -73,50 +72,11 @@ def train(args,params):
 
             avg_loss += loss.item()
 
-        p_bar.set_description(
-            f"Training : [Epoch {epoch}/{args.epochs}] "
-            f"[lr {optimizer.param_groups[0]['lr']:.6f}] "
-            f"[average loss: {avg_loss/len(train_dataloader):.4f}]"
-        )
-
-        ### validation loop ###
-        model.eval()
-        criterion.eval()
-        if epoch % 5:
-            with torch.no_grad():
-                epoch_val_loss = 0.0
-                p_bar = tqdm(enumerate(val_dataloader), total=len(val_dataloader))
-                for i, (samples, targets) in p_bar:
-
-                    samples = samples.to(args.device)
-                    targets = [{k: v.to(args.device) for k, v in t.items()} for t in targets]
-
-                    global_step = epoch * len(val_dataloader) + i
-                    metas = dict(epoch=epoch, step=i, global_step=global_step)
-                    outputs = model(samples, targets=targets)
-                    loss_dict = criterion(outputs, targets, **metas)
-                    loss: torch.Tensor = sum(loss_dict.values())
-
-                    epoch_val_loss += loss.item()
-
-                    # Print log
-                    p_bar.set_description(
-                        "Validating : [Epoch %d/%d] [Batch %d/%d] [lr %f] [total_loss: %f]"
-                        % (
-                            epoch,
-                            args.epochs,
-                            i,
-                            len(val_dataloader),
-                            optimizer.param_groups[0]["lr"],
-                            loss.item(),
-                        )
-                    )
-                samples = samples.to(args.device)
-                targets = [{k: v.to(args.device) for k, v in t.items()} for t in targets]
-                outputs = model(samples, targets=targets)
-                processed = postprocessor(outputs, torch.tensor(samples.shape[-2:]).to(args.device))
-                img = plots.visualize_bboxes(samples.cpu(),targets,processed)
-                epoch_val_loss /= len(val_dataloader)
+            p_bar.set_description(
+                f"Training : [Epoch {epoch}/{args.epochs}] "
+                f"[lr {optimizer.param_groups[0]['lr']:.6f}] "
+                f"[average loss: {avg_loss/(i+1):.4f}]"
+            )
 
 
 if __name__ == "__main__":

@@ -11,14 +11,15 @@ def visualize_bboxes(images, gt_boxes, pred_boxes):
     fig, axs = plt.subplots(2, num_imgs, figsize=(20, 8))
     
     for i in range(num_imgs):
-        image = images[i].numpy().transpose(1, 2, 0)  # Change from (C, H, W) to (H, W, C)
+        image = images[i].numpy().transpose(1, 2, 0)
         
         # Plot ground truth
         axs[0, i].imshow(image)
         axs[0, i].set_title(f"Ground Truth {i+1}")
         axs[0, i].axis('off')
-        
-        for box in gt_boxes[i]['boxes'].cpu():
+        true_boxes = gt_boxes[i]['boxes'].cpu()
+        num_gt_boxes = true_boxes.shape[0]
+        for box in true_boxes:
             cx, cy, w, h = box
             x1 = (cx - w / 2) * width
             y1 = (cy - h / 2) * height
@@ -33,7 +34,7 @@ def visualize_bboxes(images, gt_boxes, pred_boxes):
         axs[1, i].set_title(f"Prediction {i+1}")
         axs[1, i].axis('off')
         
-        for box in pred_boxes[i]['boxes'].cpu():
+        for box in pred_boxes[i]['boxes'].cpu()[:num_gt_boxes]:
             cx, cy, w, h = box
             x1 = (cx - w / 2) * width
             y1 = (cy - h / 2) * height

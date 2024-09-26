@@ -1,4 +1,4 @@
-![Visitor Count](https://profile-counter.glitch.me/balalofernandez/RTDETRv2-pt/count.svg)
+![Visitor Count](https://profile-counter.glitch.me/balalofernandez-RTDETRv2-pt/count.svg)
 # RTDETRv2-pt
 
 RTDETRv2 re-implementation using PyTorch

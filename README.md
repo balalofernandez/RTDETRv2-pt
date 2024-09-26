@@ -41,4 +41,4 @@ rtdetrv2_r101vd | COCO+Objects365 | 640 | 56.2 | 74.5 | 76 | 74 | [url<sup>*</su
 
 ### Results
 
-![Alt Text](./demo/demo.gif)
+![Results](./rtdetr_image.png)

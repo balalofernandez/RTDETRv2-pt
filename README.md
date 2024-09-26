@@ -1,4 +1,3 @@
-![Visitor Count](https://profile-counter.glitch.me/balalofernandez-RTDETRv2-pt/count.svg)
 # RTDETRv2-pt
 
 RTDETRv2 re-implementation using PyTorch
@@ -43,3 +42,5 @@ rtdetrv2_r101vd | COCO+Objects365 | 640 | 56.2 | 74.5 | 76 | 74 | [url<sup>*</su
 ### Results
 
 ![Results](./rtdetr_image.png)
+
+![Visitor Count](https://profile-counter.glitch.me/balalofernandez-RTDETRv2-pt/count.svg)

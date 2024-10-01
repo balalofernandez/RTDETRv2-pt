@@ -3,7 +3,6 @@
 RTDETRv2 re-implementation using PyTorch
 
 ### Installation
-
 ```
 git clone https://github.com/balalofernandez/RTDETRv2-pt.git
 cd RTDETRv2-pt
